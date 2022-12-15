@@ -48,6 +48,11 @@ public class CharacterController : MonoBehaviour
 
         }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.Play("MeleeAttack");
+        }
+
         /*if (rb.velocity.sqrMagnitude >= 4)
         {
             animator.SetBool("isWalking", true);
