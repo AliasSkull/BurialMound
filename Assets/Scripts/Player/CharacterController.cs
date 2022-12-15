@@ -9,6 +9,10 @@ public class CharacterController : MonoBehaviour
 
     Vector3 forward, right;
 
+    Animator animator;
+
+    Rigidbody rb;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,14 +20,22 @@ public class CharacterController : MonoBehaviour
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.anyKey)
         {
             Move();
+           
+        }
+        else 
+        {
+          
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -36,6 +48,16 @@ public class CharacterController : MonoBehaviour
 
         }
 
+        /*if (rb.velocity.sqrMagnitude >= 4)
+        {
+            animator.SetBool("isWalking", true);
+
+        }
+        else if (rb.velocity.sqrMagnitude <= 4)
+        {
+
+            animator.SetBool("isWalking", false);
+        }*/
     }
 
     public void Move() 
