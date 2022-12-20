@@ -10,9 +10,10 @@ public class CharacterController : MonoBehaviour
     private float moveSpeed = 7f;
     private float stoppingDistance = 2f;
 
- 
 
-    Animator animator;
+
+    [SerializeField]
+    private Animator playerAnimator;
 
     Rigidbody rb;
 
@@ -30,7 +31,7 @@ public class CharacterController : MonoBehaviour
     void Start()
     {
         _currentState = State.Combat;
-        animator = GetComponent<Animator>();
+      
         rb = GetComponent<Rigidbody>();
 
    
@@ -40,18 +41,22 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
 
+
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            playerAnimator.SetBool("isWalking", true);
+        }
+        else 
+        {
+            playerAnimator.SetBool("isWalking", false);
         }
 
 
         if (Input.GetMouseButtonDown(0))
-        { 
-
-            targetPosition = MousetoWorld.GetPosition();
-            Move(targetPosition);
+        {
+            Move(MousetoWorld.GetPosition());
         }
     }
 
