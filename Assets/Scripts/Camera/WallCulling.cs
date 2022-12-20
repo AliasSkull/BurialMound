@@ -37,7 +37,7 @@ public class WallCulling : MonoBehaviour
                 materials[m].SetFloat("_CutoutSize", 0.1f);
                 materials[m].SetFloat("Falloff", 0.05f);
             
-            c
+            
             }
         
         

@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+enum State {Combat, Base };
 public class CharacterController : MonoBehaviour
 {
-    [SerializeField]
-    float moveSpeed = 7f;
+   
+    private float moveSpeed = 7f;
+    private float stoppingDistance = 1f;
 
     Vector3 forward, right;
 
@@ -13,13 +16,18 @@ public class CharacterController : MonoBehaviour
 
     Rigidbody rb;
 
+    State _currentState;
+
+    private Vector3 targetPosition;
+
     // Start is called before the first frame update
     void Start()
     {
-        forward = Camera.main.transform.forward;
+        _currentState = State.Combat;
+       /* forward = Camera.main.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;*/
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
@@ -27,42 +35,26 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.anyKey)
-        {
-            Move();
            
-        }
-        else 
-        {
-          
-        }
+         
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            moveSpeed = 10;
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            moveSpeed = 7;
+                if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
+                {
+                    Vector3 moveDirection = (targetPosition - transform.position).normalized;
+                    transform.position += moveDirection * Time.deltaTime * moveSpeed;
 
-        }
+                }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            animator.Play("MeleeAttack");
-        }
 
-        /*if (rb.velocity.sqrMagnitude >= 4)
-        {
-            animator.SetBool("isWalking", true);
+                if (Input.GetKeyDown(KeyCode.T))
+                {
+                    CombatMove( new Vector3(54, 0, 35));
+                
+                }
 
-        }
-        else if (rb.velocity.sqrMagnitude <= 4)
-        {
-
-            animator.SetBool("isWalking", false);
-        }*/
+         
+ 
+        
     }
 
     public void Move() 
@@ -78,5 +70,13 @@ public class CharacterController : MonoBehaviour
         transform.position += rightmovement;
         transform.position += upMovement;
 
+    }
+
+    private void CombatMove(Vector3 targetPosition) 
+    {
+
+       
+        this.targetPosition = targetPosition;
+    
     }
 }
