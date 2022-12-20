@@ -4,25 +4,52 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject _Target;
-
-    private Vector3 _offset;
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        _offset = transform.position - _Target.transform.position;
-        transform.position = _Target.transform.position + _offset;
-   
-    }
-
-    private void LateUpdate()
-    {
-        transform.position = _Target.transform.position + _offset;
+        Vector3 inputMoveDirection = new Vector3(0, 0, 0);
+        if (Input.GetKey(KeyCode.W))
+        {
+            inputMoveDirection.z = +1f;
         
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            inputMoveDirection.z = -1f;
+        
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            inputMoveDirection.x = +1f;
+        
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            inputMoveDirection.x = -1f;
+        
+        }
 
+        float moveSpeed = 5f;
 
+        Vector3 moveVector = transform.forward * inputMoveDirection.z + transform.right * inputMoveDirection.x;
+        transform.position += inputMoveDirection * moveSpeed * Time.deltaTime;
+
+        Vector3 rotationVector = new Vector3(0, 0, 0);
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            rotationVector.y = +1f;
+        }
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            rotationVector.y = -1f;
+
+        }
+
+        float rotationSpeed = 50f;
+        transform.eulerAngles += rotationVector * rotationSpeed * Time.deltaTime;
     }
 
 }
