@@ -46,11 +46,14 @@ public class CharacterController : MonoBehaviour
         {
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
-            playerAnimator.SetBool("isWalking", true);
+
+            float rotateSpeed = 10f;
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+            //playerAnimator.SetBool("isWalking", true);
         }
         else 
         {
-            playerAnimator.SetBool("isWalking", false);
+            //playerAnimator.SetBool("isWalking", false);
         }
 
 
