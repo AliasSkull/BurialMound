@@ -19,8 +19,9 @@ public class MousetoWorld : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, instance.mousePlaneLayermask);
+        Debug.Log(raycastHit.point);
         return raycastHit.point;
-
+       
 
 
     }

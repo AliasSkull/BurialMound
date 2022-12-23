@@ -5,10 +5,10 @@ using UnityEngine;
 public class MoveAction : MonoBehaviour
 {
     private float moveSpeed = 7f;
-    private float stoppingDistance = 0.1f;
+    private float stoppingDistance = 0.001f;
     private Vector3 targetPosition;
 
-    [SerializeField]
+    
     private int maxMoveDistance = 4;
 
     private Unit unit;
@@ -27,23 +27,20 @@ public class MoveAction : MonoBehaviour
 
             float rotateSpeed = 10f;
             transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
-            //playerAnimator.SetBool("isWalking", true);
+          
         }
         else
         {
-            //playerAnimator.SetBool("isWalking", false);
+      
         }
 
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Move(MousetoWorld.GetPosition());
-        }
+       
     }
     public void Move(GridPosition gridPosition)
     {
 
-
+        Debug.Log("I am being called");
         this.targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
 
     }

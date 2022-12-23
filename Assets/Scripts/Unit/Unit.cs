@@ -8,8 +8,7 @@ public class Unit : MonoBehaviour
 
     private MoveAction moveAction;
 
-    [SerializeField]
-    private Animator playerAnimator;
+    
 
 
 
